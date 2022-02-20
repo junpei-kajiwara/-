@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>電卓</title>
+    <style>
+        button {
+            width: 50px;
+            height: 50px;
+        }
+      </style>
+</head>
+<body>
+    <div style="display: flex;">
+        <div>
+            <button id="allDelete">c</button><br>
+            <button id="oneDelete">←</button><br>
+            <button id="zero">0</button>
+        </div>
+        <div id="div1"></div>
+        <div>
+            <button id="equal">=</button><br>
+            <button id="sign">+/-</button><br>
+            <button id="plus">+</button>
+        </div>
+        <div>
+            <button id="minus">-</button><br>
+            <button id="star">×</button><br>
+            <button id="slash">/</button>
+        </div>
+    </div>
+
+    <div>
+        <input type="text" id="input" >
+    </div>
+    <div>
+        <p><input type="text" id="text1"><span> ? </span><input type="text" id="text2"> → <span></span> </p>
+    </div>
+
+    <script language="javascript" type="text/javascript">
+        const div1 = document.getElementById("div1");
+        
+        for(let i = 0; i < 3; i++){
+            const newDiv = document.createElement("div");
+            
+            for(let j = 0; j < 3; j++){
+                const newBtn = document.createElement("button");
+                newBtn.innerHTML = i * 3 + j + 1;
+                
+                newBtn.onclick = function () {
+                    input.value += (i * 3 + j + 1);
+                }
+                newDiv.appendChild(newBtn);
+            }
+            div1.appendChild(newDiv);
+        }
+        
+        let check;
+        
+        const input = document.getElementById("input");
+        const text1 = document.getElementById("text1");
+        const text2 = document.getElementById("text2");
+
+        const zero = document.getElementById("zero");
+        const plus = document.getElementById("plus");
+        const minus = document.getElementById("minus");
+        const star = document.getElementById("star");
+        const slash = document.getElementById("slash");
+        const equal = document.getElementById("equal");
+        const sign = document.getElementById("sign");
+        const allDelete = document.getElementById("allDelete");
+        const oneDelete = document.getElementById("oneDelete");
+
+        const span1 = document.getElementsByTagName("span")[0];
+        const span2 = document.getElementsByTagName("span")[1];
+
+        allDelete.onclick = function () {
+            input.value = "";
+            text1.value = "";
+            text2.value = "";
+            span1.textContent = " ? ";
+        }
+
+        oneDelete.onclick = function () {
+            input.value = input.value.slice(0, -1);
+        }
+
+        zero.onclick = function () {
+            input.value += 0;
+        }
+
+        plus.onclick = function () {
+            text1.value = input.value;
+            text2.value = "";
+            input.value = "";
+            span1.textContent = " + ";
+            span2.textContent = "";
+            check = plus.textContent;
+        }
+
+        minus.onclick = function () {
+            text1.value = input.value;
+            text2.value = "";
+            input.value = "";
+            span1.textContent = " - ";
+            span2.textContent = "";
+            check = minus.textContent;
+        }
+
+        star.onclick = function () {
+            text1.value = input.value;
+            text2.value = "";
+            input.value = "";
+            span1.textContent = " × ";
+            span2.textContent = "";
+            check = star.textContent;
+        }
+
+        slash.onclick = function () {
+            text1.value = input.value;
+            text2.value = "";
+            input.value = "";
+            span1.textContent = " / ";
+            span2.textContent = "";
+            check = slash.textContent;
+        }
+
+        sign.onclick = function () {
+            if (input.value === "") {
+                return;
+            } else if (input.value === "0") {
+                return;
+            }
+
+            let num = parseInt(input.value);
+
+            input.value = (-num);
+        }
+
+        equal.onclick = function () {
+            if (text1.value === "") {
+                return;
+            }
+
+            text2.value = input.value;
+            input.value = "";
+
+            let result;
+            let num1 = parseInt(text1.value);
+            let num2 = parseInt(text2.value);
+
+            if (check === "+") {
+                result = num1 + num2;
+                span2.textContent = result;
+            }
+
+            if (check === "-") {
+                result = num1 - num2;
+                span2.textContent = result;
+            }
+
+            if (check === "×") {
+                result = num1 * num2;
+                span2.textContent = result;
+            }
+
+            if (check === "/") {
+                result = num1 / num2;
+                span2.textContent = result;
+            }
+        }
+
+
+
+    </script>
+</body>
+</html>
